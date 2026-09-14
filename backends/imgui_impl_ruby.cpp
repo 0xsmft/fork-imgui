@@ -720,6 +720,8 @@ static void ImGui_ImplRuby_ShowWindow( ImGuiViewport* viewport )
     }
     else
     {
+		vd->Window->Show( RubyWindowShowCmd::NoActivate );
+
 #if defined( _WIN32 )
         ::ShowWindow( hwnd, SW_SHOWNA );
 #endif
