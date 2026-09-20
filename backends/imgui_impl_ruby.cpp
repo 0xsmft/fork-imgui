@@ -568,8 +568,11 @@ void ImGui_ImplRuby_NewFrame()
 	IM_ASSERT( bd != NULL && "Did you call ImGui_ImplRuby_InitForXXX()?" );
 
 	// Setup display size (every frame to accommodate for window resizing)
-	RubyIVec2 size = bd->Window->GetSize();
+	const RubyIVec2 size = bd->Window->GetSize();
+	const auto fbScale = bd->Window->GetFramebufferScale();
+
     io.DisplaySize = ImVec2( ( float ) size.x, ( float ) size.y );
+	io.DisplayFramebufferScale = ImVec2( fbScale.x, fbScale.y );
 
 	if( bd->WantUpdateMonitors )
 		ImGui_ImplRuby_UpdateMonitors();
