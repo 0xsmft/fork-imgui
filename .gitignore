@@ -34,6 +34,13 @@ build*/
 ## Xcode artifacts
 project.xcworkspace
 xcuserdata
+*.pbxproj
+*.xcworkspace
+*.xcworkspacedata
+*.xcuserstate
+*.xcsettings
+**/xcschemes
+**.gputrace
 
 ## Emscripten artifacts
 examples/*.o.tmp
