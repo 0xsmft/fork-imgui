@@ -262,6 +262,7 @@ static ImGuiKey ImGui_ImplRuby_KeyToImGuiKey( int scancode )
 		case RubyKey_LeftCtrl: return ImGuiKey_LeftCtrl;
 		case RubyKey_LeftAlt: return ImGuiKey_LeftAlt;
 		case RubyKey_OSKey: return ImGuiKey_LeftSuper;
+        case RubyKey_OSKeyRight: return ImGuiKey_RightSuper;
 		case RubyKey_Insert: return ImGuiKey_Insert;
 		case RubyKey_Delete: return ImGuiKey_Delete;
 		case RubyKey_Home: return ImGuiKey_Home;
