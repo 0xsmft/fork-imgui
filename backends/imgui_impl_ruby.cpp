@@ -547,17 +547,23 @@ static void ImGui_ImplRuby_UpdateMonitors()
 
 	std::vector<RubyMonitor> monitors = RubyLibrary::Get().GetAllMonitors();
 
+	platform_io.Monitors.resize( 0 );
+
 	for( const auto& rMonitor : monitors )
 	{
 		ImGuiPlatformMonitor monitor;
 
-		monitor.MainSize = ImVec2( ( float ) rMonitor.MonitorSize.x, ( float ) rMonitor.MonitorSize.x );
+		monitor.MainPos  = ImVec2( ( float ) rMonitor.MonitorPosition.x, ( float ) rMonitor.MonitorPosition.y );
+		monitor.MainSize = ImVec2( ( float ) rMonitor.MonitorSize.x, ( float ) rMonitor.MonitorSize.y );
+
+		monitor.WorkPos  = ImVec2( ( float ) rMonitor.WorkPosition.x, ( float ) rMonitor.WorkPosition.y );
 		monitor.WorkSize = ImVec2( ( float ) rMonitor.WorkSize.x, ( float ) rMonitor.WorkSize.y );
 
-		monitor.WorkPos = ImVec2( ( float ) rMonitor.MonitorPosition.x, ( float ) rMonitor.MonitorPosition.y );
-		monitor.MainPos = monitor.WorkPos;
-
-		platform_io.Monitors.push_back( monitor );
+		// ImGui expects the primary monitor first.
+		if( rMonitor.Primary )
+			platform_io.Monitors.push_front( monitor );
+		else
+			platform_io.Monitors.push_back( monitor );
 	}
 	bd->WantUpdateMonitors = false;
 }
