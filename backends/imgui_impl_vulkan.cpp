@@ -1905,6 +1905,16 @@ static void ImGui_ImplVulkan_RenderWindow(ImGuiViewport* viewport, void*)
 		}
 	}
 
+	// Saturn: ImGui 1.90 gives every viewport the main window's framebuffer scale. A window on a display with a
+	// different backing scale (Retina vs non-Retina on macOS) gets a different sized swapchain, so derive the
+	// scale from the swapchain instead. This is always 1 on platforms where the swapchain matches the window size.
+	if (viewport->Size.x > 0.0f && viewport->Size.y > 0.0f)
+	{
+		const float scale_x = floorf((float)wd->Width / viewport->Size.x + 0.5f);
+		const float scale_y = floorf((float)wd->Height / viewport->Size.y + 0.5f);
+		viewport->DrawData->FramebufferScale = ImVec2(scale_x < 1.0f ? 1.0f : scale_x, scale_y < 1.0f ? 1.0f : scale_y);
+	}
+
 	ImGui_ImplVulkan_RenderDrawData(viewport->DrawData, fd->CommandBuffer, wd->Pipeline);
 
 	{
